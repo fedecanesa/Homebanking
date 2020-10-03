@@ -1,18 +1,41 @@
-//Declaración de variables---------------------------------------------------------------------------------------
-var saldoCuenta = 10000;
-var limiteExtraccion = 2000;
+//Declaración de variables--------------------------------------------------------------------------------------
+let saldoCuenta = 10000;
+let limiteExtraccion = 2000;
+
+
+
+//Constantes - obtengo datos
+const extraer_dinero = document.querySelector("#extraer_dinero");
+const depositar_dinero = document.querySelector("#depositar_dinero");
+const pagar_servicio = document.querySelector("#pagar_servicio");
+const transferir_dinero = document.querySelector("#transferir_dinero");
+const cambiar_limite_extraccion = document.querySelector("#cambiar_limite_extraccion");
+const cerrar_sesion = document.querySelector("#cerrar_sesion");
+
+
+//Eventos
+extraer_dinero.addEventListener("click" , extraerDinero);
+depositar_dinero.addEventListener("click", depositarDinero);
+pagar_servicio.addEventListener("click", pagarServicio);
+transferir_dinero.addEventListener("click", transferirDinero);
+cambiar_limite_extraccion.addEventListener("click", cambiarLimiteDeExtraccion);
+cerrar_sesion.addEventListener("click", cerrarSesion);
+
 
 //Funciones adicionales ----------------------------------------------------------------------------------------
-function sumarDinero(dinero) {
+function sumarDinero(dinero) 
+{
 	saldoCuenta += dinero;
 }
 
-function restarDinero (dinero) {
+function restarDinero (dinero) 
+{
 	saldoCuenta -= dinero;
 }
 
 //Onload----------------------------------------------------------------------------------------------------------
-window.onload = function() {
+window.onload = function() 
+{
 	cargarNombreEnPantalla();
    	actualizarSaldoEnPantalla();
     actualizarLimiteEnPantalla();
@@ -20,48 +43,47 @@ window.onload = function() {
 
 //Funciones de inicio y cierre de Sesión---------------------------------------------------------------------------
 //Se solicita abrir el archivo login.htm para iniciar sesión.
-function login(){
-	var usuario = document.getElementById("usuario").value;
-	var	pass = parseInt(document.getElementById("contrasenia").value);
 
-	if ((usuario === "federico_canesa") && (pass === 1234)) {
-		document.location.target = "_blank";
-        document.location.href="index.html";
-        swal("Hecho" , "Bienvenido Federico, ya podes comenzar a realizar operaciones");
-		
-	} else {
-		swal("Error", "Usuario o contraseña incorrecto", "error");
-		swal("Error", "Por cuestiones de seguridad la cuenta ha sido bloqueada.", "error");
-	}
-}
+
+
+
 //Cuando se finaliza la sesión retorna a la pantalla de login
-function cerrarSesion() {
+function cerrarSesion() 
+{
 	window.alert("¿Esta seguro que desea continuar?");
 	document.location.target = "_blank";
     document.location.href="login.html";
 }
 
 //Funciones que tenes que completar---------------------------------------------------------------------------------
-function extraerDinero() {
-	
-	var extraccion = parseInt(prompt("Ingrese la cantidad de dinero que desea extraer"));
-	var saldoActual = saldoCuenta - extraccion;
-	var saldoAnterior = saldoActual + extraccion;
 
-	if (extraccion > saldoCuenta) {
+
+function extraerDinero() 
+{
+	
+	let extraccion = parseInt(prompt("Ingrese la cantidad de dinero que desea extraer"));
+	let saldoActual = saldoCuenta - extraccion;
+	let saldoAnterior = saldoActual + extraccion;
+
+	if (extraccion > saldoCuenta) 
+	{
 		swal("Error", "No hay saldo disponible en tu cuenta para extraer esa cantidad de dinero", "error");
 		} 
-		else if (extraccion>limiteExtraccion) {
+		else if (extraccion>limiteExtraccion) 
+		{
 			swal("Error", "La cantidad de dinero que deseas extraer supera a tu límite de extracción", "error");
 		} 	
-		else if (extraccion % 100) {
+		else if (extraccion % 100) 
+		{
 			swal("Error", "Solo puedes extraer billetes de $100", "error");
 		}
-		else if (isNaN(extraccion)) {
+		else if (isNaN(extraccion)) 
+		{
 			swal("Error", "Ingrese un valor válido", "error");
 			return false;
 		}
-		else {
+		else 
+		{
 			window.alert("¿Esta seguro que desea continuar?");
 			restarDinero(extraccion);	
 			actualizarSaldoEnPantalla();
@@ -71,9 +93,9 @@ function extraerDinero() {
 
 function depositarDinero() {
 	
-	var depositar = parseInt(prompt("Ingrese la cantidad de dinero que quiere depositar"));
-	var saldoActual = saldoCuenta + depositar;
-	var saldoAnterior = saldoCuenta - depositar;
+	let depositar = parseInt(prompt("Ingrese la cantidad de dinero que quiere depositar"));
+	let saldoActual = saldoCuenta + depositar;
+	let saldoAnterior = saldoCuenta - depositar;
 	
 	if (isNaN(depositar)) {
 		swal("Error", "Ingrese un valor válido", "error");
@@ -88,14 +110,15 @@ function depositarDinero() {
 	}
 }
 
-function pagarServicio() {
+function pagarServicio() 
+{
 	
-	var agua = 350;
-	var telefono = 425;
-	var luz = 210;
-	var internet = 570;
+	let agua = 350;
+	let telefono = 425;
+	let luz = 210;
+	let internet = 570;
 
-	var opciones = parseInt(prompt(("Ingrese el numero del servicio que desea abonar:") + 
+	let opciones = parseInt(prompt(("Ingrese el numero del servicio que desea abonar:") + 
 		   ("\n 1. Agua") + 
 		   ("\n 2. Luz") + 
 		   ("\n 3. internet") +
@@ -104,55 +127,69 @@ function pagarServicio() {
 	
 	switch(opciones) {
 		case 1: 
-			if (agua>saldoCuenta) {
+			if (agua>saldoCuenta) 
+			{
 				swal("Error", "No posee fondos suficientes para pagar el servio");
 
 			} else
-				var saldoActual = saldoCuenta - agua;
-				var saldoAnterior = saldoActual + agua;
+			{
+				let saldoActual = saldoCuenta - agua;
+				let saldoAnterior = saldoActual + agua;
 				window.alert("¿Esta seguro que desea abonar el telefono por un monto de $" + agua + "?");
  				restarDinero(agua);
 				actualizarSaldoEnPantalla();
 				swal("Hecho", "Has pagado el serivio por un monto de $" + agua + "\n Saldo anterior: $" + saldoAnterior + "\n Su saldo actual es: $" + saldoActual, "success");
+			}
+				
 		break;
 			
 		case 2: 
-			if (luz>saldoCuenta) {
+			if (luz>saldoCuenta) 
+			{
 				swal("Error", "No posee fondos suficientes para pagar el servio");
-
-			} else 
-				var saldoActual = saldoCuenta - luz;
-				var saldoAnterior = saldoActual + luz;
+			} 
+			else
+			{
+				let saldoActual = saldoCuenta - luz;
+				let saldoAnterior = saldoActual + luz;
 				window.alert("¿Esta seguro que desea abonar el telefono por un monto de $" + luz + "?");
 				restarDinero(luz);
 				actualizarSaldoEnPantalla();
 				swal("Hecho", "Has pagado el serivio por un monto de $" + luz + "\n Saldo anterior: $" + saldoAnterior + "\n Su saldo actual es: $" + saldoActual, "success");
+			} 
+				
 		break;
 		
 		case 3: 
-			if (internet>saldoCuenta) {
+			if (internet>saldoCuenta) 
+			{
 				swal("Error", "No posee fondos suficientes para pagar el servio");
-
-			} else 
-				var saldoActual = saldoCuenta - internet;
-				var saldoAnterior = saldoActual + internet;
+			} 
+			else
+			{ 
+				let saldoActual = saldoCuenta - internet;
+				let saldoAnterior = saldoActual + internet;
 				window.alert("¿Esta seguro que desea abonar el telefono por un monto de $" + internet + "?");
 				restarDinero(internet);
 				actualizarSaldoEnPantalla();
 				swal("Hecho", "Has pagado el serivio por un monto de $" + internet + "\n Saldo anterior: $" + saldoAnterior + "\n Su saldo actual es: $" + saldoActual, "success");
+			}
 		break;
 		
 		case 4: 
-			if (telefono>saldoCuenta) {
+			if (telefono>saldoCuenta) 
+			{
 				swal("Error", "No posee fondos suficientes para pagar el servio");
-
-			} else 
-				var saldoActual = saldoCuenta - telefono;
-				var saldoAnterior = saldoActual + telefono;
+			} 
+			else
+			{ 
+				let saldoActual = saldoCuenta - telefono;
+				let saldoAnterior = saldoActual + telefono;
 				window.alert("¿Esta seguro que desea abonar el telefono por un monto de $" + telefono + "?");
 				restarDinero(telefono);
 				actualizarSaldoEnPantalla();
 				swal("Hecho", "Has pagado el serivio por un monto de $" + telefono + "\n Saldo anterior: $" + saldoAnterior + "\n Su saldo actual es: $" + saldoActual, "success");
+			}
 		break;
 
 		default:
@@ -161,28 +198,35 @@ function pagarServicio() {
 	}
 }
 	
-function transferirDinero() {
+function transferirDinero() 
+{
 	
-	var cuentaAmiga1 = 1234567;
-	var cuentaAmiga2 = 7654321;
-	var saldoActual = saldoCuenta - montoATransferir;
-	var saldoAnterior = saldoActual + montoATransferir;
+	let cuentaAmiga1 = 1234567;
+	let cuentaAmiga2 = 7654321;
 	
-	var montoATransferir = parseInt(prompt("Ingrese el monto que desea transferir"));
+	let montoATransferir = parseInt(prompt("Ingrese el monto que desea transferir"));
 	
-	if (isNaN(montoATransferir)) {
+	let saldoActual = saldoCuenta - montoATransferir;
+	let saldoAnterior = saldoActual + montoATransferir;
+	
+	if (isNaN(montoATransferir)) 
+	{
 		swal("Error", "Ingrese un valor válido", "error");
 		return false;
 	}
 
-	var cuentaDestino = parseInt(prompt("Ingrese el numero de la cuenta a la que desea transferir dinero"));
+	let cuentaDestino = parseInt(prompt("Ingrese el numero de la cuenta a la que desea transferir dinero"));
 	
-	if ((cuentaDestino === cuentaAmiga1) || (cuentaDestino === cuentaAmiga2)){
+	if ((cuentaDestino === cuentaAmiga1) || (cuentaDestino === cuentaAmiga2))
+	{
 		window.alert("¿Esta seguro que desea continuar?");	
 		restarDinero(montoATransferir);
 		actualizarSaldoEnPantalla();
-		swal("Hecho", "Se transfirieron: $" + montoATransferir, + "\n Saldo anterior: $" + saldoAnterior + "\n Su saldo actual es: $" + saldoActual, "success");
-	} else {
+		/* swal("Hecho", "Se transfirieron: $" + montoATransferir, + "\n Saldo anterior: $" + saldoAnterior + "\n Su saldo actual es: $" + saldoActual, "success"); */
+		alert("Se transfirieron: $" + montoATransferir, + "\n Saldo anterior: $" + saldoAnterior + "\n Su saldo actual es: $" + saldoActual);
+	
+	} else 
+	{
 		swal("Error", "Ingrese un numero de cuenta válido", "error");
 		return false;
 	}
@@ -204,8 +248,9 @@ function cambiarLimiteDeExtraccion() {
   	}
 }
 
-//Funciones que actualizan el valor de las variables en el HTML------------------------------------------------------
-function cargarNombreEnPantalla() {
+//Funciones que actualizan el valor de las letiables en el HTML------------------------------------------------------
+function cargarNombreEnPantalla() 
+{
     document.getElementById("nombre").innerHTML = "Bienvenido/a Federico Canesa";
 }
 
