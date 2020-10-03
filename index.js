@@ -22,7 +22,7 @@ cambiar_limite_extraccion.addEventListener("click", cambiarLimiteDeExtraccion);
 cerrar_sesion.addEventListener("click", cerrarSesion);
 
 
-//Funciones adicionales ----------------------------------------------------------------------------------------
+//Funciones adicionales -------------------------------------------------------------------------------------
 function sumarDinero(dinero) 
 {
 	saldoCuenta += dinero;
